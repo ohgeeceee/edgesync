@@ -20,6 +20,8 @@
     "build": "npm run build:ts && npm run build:app && npm run build:sw",
     "serve": "node scripts/dev-server.mjs",
     "test": "vitest run",
+    "test:backend": "node --test backend/*.test.mjs",
+    "test:all": "node scripts/test-all.mjs",
     "lint": "tsc --noEmit"
   },
   "dependencies": {

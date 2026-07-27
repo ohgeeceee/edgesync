@@ -1,0 +1,43 @@
+[Unit]
+Description=EdgeSync sync backend (Node stdlib)
+Documentation=https://github.com/ohgeeceee/edgesync
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=edgesync
+Group=edgesync
+
+# Adjust WorkingDirectory for your checkout path.
+WorkingDirectory=/opt/edgesync
+ExecStart=/usr/bin/node backend/server.mjs --port 8787 --host 127.0.0.1 --datadir /var/lib/edgesync/data
+
+Environment=NODE_ENV=production
+Environment=EDGESYNC_TOKEN=__REPLACE_WITH_RANDOM__
+# Set when auth must be enforced; the server also supports per-instance
+# bearer auth via the EDGESYNC_TOKEN env var above.  Two settings:
+#   - Always populate EDGESYNC_TOKEN (in-memory token).
+#   - When the deployment must refuse unauthenticated requests, the
+#     server can be re-bound to require auth on the wire (a flag
+#     we'll add in v1.1; for now, use the nginx allowlist below).
+Restart=on-failure
+RestartSec=5
+
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ReadWritePaths=/var/lib/edgesync
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+# Resource caps
+MemoryHigh=200M
+MemoryMax=300M
+
+[Install]
+WantedBy=multi-user.target
