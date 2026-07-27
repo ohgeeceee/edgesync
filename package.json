@@ -1,0 +1,39 @@
+{
+  "name": "edgesync",
+  "version": "0.1.0",
+  "description": "Ultra-lightweight, offline-first business portal for remote operators.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18.17"
+  },
+  "browserslist": [
+    "Chrome >= 110",
+    "Edge >= 110",
+    "Firefox >= 110",
+    "Safari >= 16.4"
+  ],
+  "scripts": {
+    "build:ts": "tsc --noEmit",
+    "build:app": "esbuild src/ui/main.tsx --bundle --minify --format=esm --target=es2020 --outfile=public/app.js",
+    "build:sw": "esbuild src/sw/service-worker.ts --bundle --minify --format=iife --target=es2020 --outfile=public/sw.js",
+    "build": "npm run build:ts && npm run build:app && npm run build:sw",
+    "serve": "node scripts/dev-server.mjs",
+    "test": "vitest run",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "idb": "^8.0.0",
+    "preact": "^10.22.0"
+  },
+  "devDependencies": {
+    "@testing-library/preact": "^3.2.4",
+    "@types/serviceworker": "^0.0.64",
+    "esbuild": "^0.28.1",
+    "fake-indexeddb": "^6.2.2",
+    "jsdom": "^26.1.0",
+    "playwright-core": "^1.62.0",
+    "typescript": "^5.4.5",
+    "vitest": "^4.1.10"
+  }
+}
