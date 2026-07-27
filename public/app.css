@@ -1,0 +1,70 @@
+/* EdgeSync — minimal hand-rolled CSS, ~2 KB.  No preprocessor, no framework. */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #0f172a; background: #f8fafc; }
+input, select, textarea, button { font: inherit; color: inherit; }
+
+.es-app { max-width: 720px; margin: 0 auto; padding: 16px; }
+
+/* ---- Status bar ---- */
+.es-statusbar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;
+  margin-bottom: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.es-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.es-dot--syncing { animation: es-pulse 1.2s ease-in-out infinite; }
+@keyframes es-pulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+.es-status-label { font-size: 14px; }
+
+/* ---- Main ---- */
+.es-main h1 { margin: 8px 0 4px; font-size: 28px; }
+.es-tagline { margin: 0 0 24px; color: #64748b; }
+
+/* ---- Form ---- */
+.es-form fieldset { border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; margin: 0 0 16px; background: #fff; }
+.es-form legend { font-weight: 600; padding: 0 4px; }
+.es-form label { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; font-size: 14px; }
+.es-form input, .es-form select, .es-form textarea {
+  padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff;
+}
+.es-form input:focus, .es-form select:focus, .es-form textarea:focus {
+  outline: 2px solid #2563eb; outline-offset: 1px; border-color: #2563eb;
+}
+.es-form-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.es-form button {
+  background: #2563eb; color: #fff; border: 0; padding: 8px 16px; border-radius: 6px; cursor: pointer;
+}
+.es-form button:disabled { opacity: .5; cursor: not-allowed; }
+.es-form-saved { color: #16a34a; font-size: 14px; }
+.es-form-pending { color: #2563eb; font-size: 14px; }
+.es-form-conflict { color: #dc2626; font-size: 14px; }
+
+/* ---- SW update toast (audit M5) ---- */
+.es-sw-update {
+  position: fixed; bottom: 16px; right: 16px;
+  background: #0f172a; color: #fff;
+  padding: 8px 12px; border-radius: 8px;
+  display: flex; gap: 8px; align-items: center;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.2);
+  font-size: 13px;
+}
+.es-sw-update button {
+  background: #2563eb; color: #fff; border: 0;
+  padding: 4px 10px; border-radius: 6px; cursor: pointer;
+}
+
+/* ---- Manifests list ---- */
+.es-manifests { list-style: none; padding: 0; }
+.es-manifests li {
+  padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 6px; margin-bottom: 8px; background: #fff;
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+}
+.es-manifests li.is-pending { border-left: 4px solid #2563eb; }
+.es-badge { background: #dbeafe; color: #1e3a8a; font-size: 11px; padding: 2px 6px; border-radius: 999px; }
+.es-badge--warn { background: #fee2e2; color: #991b1b; }
+
+/* ---- Signature pad ---- */
+.es-sigpad-actions { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
+.es-sigpad-hint { color: #64748b; font-size: 13px; }

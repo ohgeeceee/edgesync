@@ -1,0 +1,10 @@
+node_modules/
+coverage/
+.hermes/
+*.log
+.DS_Store
+Thumbs.db
+
+# Build artifacts are produced by `npm run build`; ship the sources only.
+public/app.js
+public/sw.js
