@@ -14,9 +14,11 @@ import process from "node:process";
 
 const parallel = process.argv.includes("--parallel");
 
+const npm = process.platform === "win32" ? "npm.cmd" : "npm";
+
 const SUITES = [
-  { name: "frontend (vitest)", cmd: "npm.cmd", args: ["run", "test"] },
-  { name: "backend (node:test)", cmd: "npm.cmd", args: ["run", "test:backend"] },
+  { name: "frontend (vitest)", cmd: npm, args: ["run", "test"] },
+  { name: "backend (node:test)", cmd: npm, args: ["run", "test:backend"] },
 ];
 
 function runOne(suite) {
