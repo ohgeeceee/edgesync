@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test (frontend vitest + backend node:test)
+        run: npm run test:all
+
+      - name: Build
+        run: npm run build
+
+      - name: Payload budget (must stay under 150 KB gz)
+        run: python scripts/measure_payload.py
+
+      - name: Security audit
+        run: npm audit --omit=dev
+        continue-on-error: true

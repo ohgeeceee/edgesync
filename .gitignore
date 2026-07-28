@@ -8,3 +8,8 @@ Thumbs.db
 # Build artifacts are produced by `npm run build`; ship the sources only.
 public/app.js
 public/sw.js
+
+# Backend data is per-instance runtime state.  The ops/ doc explains backups.
+backend/data/
+*.pid
+
